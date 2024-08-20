@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const verifyJWT = require("../middlewear/verifyJWT")
 
-router.get("/log", (req, res) => {
+router.get("/log", verifyJWT, (req, res) => {
     res.render('log')
 })
 

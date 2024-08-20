@@ -3,18 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Coder:Decoded | Home</title>
+    <link rel="stylesheet" href="/styles/home.css">
 </head>
 <body>
+    <canvas id="canvas"></canvas>
     <div class="navbar">
+        <div class="search">Search a user</div>
         <div class="title">Coder:Decoded</div>
         <div class="buttons">
-            <button class="signIn" id="In">sign in</button>
-            <button class="signUp" id="Up">sign up</button>
+            <button class="button" id="In" onclick="window.location.href='/signIn'">sign in</button>
+            <button class="button" id="Up" onclick="window.location.href='/signUp'">sign up</button>
         </div>
     </div>
 
-    <div class="article"></div>
-    <canvas></canvas>
+    <div class="article">
+        <div class="line">
+            <div class="tag"><</div>
+            <div class="info">info</div>
+            <div class="tag">></div>
+            <div class="text">The place to decode your journey as a programmer.</div>
+            <div class="tag"><</div>
+            <div class="info">info</div>
+            <div class="tag">></div>
+        </div>
+    </div>
+    <div class="article">
+        <div class="line">
+            <div class="tag"><</div>
+            <div class="info">info</div>
+            <div class="tag">></div>
+            <div class="text">Coder:Decoded uses ChartJS to provide high quality graphs depicting your skills as a Coder.</div>
+        </div>
+
+        <div class="line">
+            <div class="text">Simply log your time, and Coder:Decoded will convert your data into graphs, allowing you to</div>
+
+        </div>
+        <div class="line">
+            <div class="text">explore your time visually, as well as display your profile to whoever may be interested.</div>
+            <div class="tag"><</div>
+            <div class="info">info</div>
+            <div class="tag">></div>
+        </div>
+    </div>
+
+
+
+    <script src="/scripts/matrix.js"></script>
 </body>
 </html>
