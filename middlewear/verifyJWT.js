@@ -1,22 +1,27 @@
 const jwt = require('jsonwebtoken')
 
 const verifyJWT = (req, res, next) => {
-    authHeader = request.headers['authorization']
+    token = req.cookies.accessToken
+    console.log(`Verifying jwt; Access Token is: ${token}`)
+    
+    if(!token){return res.sendStatus(401)}
 
-    if(!authHeader){res.sendStatus(401)}
-
-    const token = authHeader.split('')[1]
     jwt.verify(
         token,
         process.env.ACCESS_TOKEN_SECRET,
         (err, decoded) => {
             if(err){
-                return res.sendStatus(403);
+                // res.sendStatus(403)
+                console.log(err.message)
+                res.status(403).redirect('/signIn')
             } else {
                 req.user = decoded.username
+                console.log(decoded)
                 next()
             }
         }
     )
     
 }
+
+module.exports = verifyJWT

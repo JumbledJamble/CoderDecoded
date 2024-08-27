@@ -7,33 +7,58 @@ const httpServer = createServer(app);
 const path = require('path');
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-// const User = require('./models/User');
-// const  connectDB  = require('./controllers/authController.js')
-// const { handleNewUser } = require('./handleUsers/signUpHandler')
-const logRoute = require('./routes/logRoute.js')
-const searchProfile = require('./routes/searchProfile.js')
-const ownProfileRoute = require('./routes/ownProfileRoute.js')
-const authRoutes = require("./routes/authRoutes.js")
-const refresh = require("./routes/refresh.js")
+const cors = require('cors');
+const connectDB = require('./controllers/dbConnection.js')
+const mongoose = require("mongoose")
 const verifyJWT = require("./middlewear/verifyJWT.js");
 const cookieParser = require("cookie-parser");
+const credentials = require('./middlewear/credentials.js')
+const corsOptions = require('./.config/corsOptions.js')
 
+app.use(credentials)
+app.use(cors(corsOptions))
 app.use(cookieParser())
 app.use(express.static('src'))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 
-app.use(authRoutes)
-app.use(searchProfile);
-app.use(refresh)
+/////// initialize database ///////////
 
-app.use(verifyJWT)
+const connectTest = async() => {
+    try { await connectDB();}
+    catch (err) {console.log(err)}
+}
 
-app.use(logRoute);
-app.use(ownProfileRoute);
+connectTest();
+
+mongoose.connection.once("open", () => {
+    console.log("logging from server.js, mongoose sucess")
+})
+mongoose.connection.on('error', (err) => {
+    console.error('Mongoose connection error:', err);
+});
+
+
 
 app.get("/", (req, res) => {
     res.render('home')
 })
+
+
+app.use("/logout", require("./routes/logout.js"))
+
+//app.use("/", require("./routes/homeRoute.js"))
+app.use("/signIn", require("./routes/authRoutes.js"));
+app.use("/searchProfile", require("./routes/searchProfile.js"));
+app.use("/refresh", require("./routes/refresh.js"))
+
+
+app.use("/log", verifyJWT, require("./routes/logRoute.js"));
+app.use("/ownProfile", verifyJWT, require("./routes/ownProfileRoute.js"))
+
+
+
 
 httpServer.listen(port, () => {
     console.log(`Running Coder:Decoded on port ${port}`);

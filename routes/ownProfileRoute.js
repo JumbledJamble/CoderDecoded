@@ -1,9 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const verifyJWT = require("../middlewear/verifyJWT")
 
-router.get('/profile', verifyJWT, (req, res) => {
-    router.render('ownProfile')
+router.get('/', (req, res) => {
+    res.render('ownProfile', { profile : req.profile})
 })
 
 module.exports = router;
