@@ -25,13 +25,13 @@ const handleUserSignIn = async (req, res) => {
     async function signInUser (username) {
         console.log("Sign in successful")
         let accessTime, refreshTime;
-
-        if(remember == true){
+        console.log(`remember is ${remember}`)
+        if(remember){
             accessTime = "1d";
             refreshTime = "90d";
         } else {
             accessTime = "2h";
-            refreshTime = "30d";
+            refreshTime = "1d";
         }
 
         const accessToken = jwt.sign(
@@ -51,8 +51,9 @@ const handleUserSignIn = async (req, res) => {
         user.refreshToken = refreshToken;
         await user.save();
 
-        console.log(`Access token: ${accessToken}`)
-        console.log(`Refresh token: ${refreshToken}`)
+        req.user = username;
+
+        console.log(`Sending ${username} an access token and a refresh token.`)
 
         res.cookie('refreshToken', refreshToken, { 
             httpOnly: true,
@@ -64,7 +65,7 @@ const handleUserSignIn = async (req, res) => {
             httpOnly: true,
             sameSite: 'None',
             secure: true,
-            maxAge: 24 * 60 * 60 * 1000, // 1 day or match the accessToken expiry time
+            maxAge: 24 * 60 * 60 * 1000,
         });
 
         res.redirect('ownProfile')

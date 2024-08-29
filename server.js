@@ -10,10 +10,16 @@ app.set('views', path.join(__dirname, 'views'));
 const cors = require('cors');
 const connectDB = require('./controllers/dbConnection.js')
 const mongoose = require("mongoose")
-const verifyJWT = require("./middlewear/verifyJWT.js");
+
+
+const { redirectInvalidTokens } = require("./middlewear/redirectInvalidUsers.js")
+const { redirectValidTokens } = require("./middlewear/redirectValidUsers.js")
+
 const cookieParser = require("cookie-parser");
 const credentials = require('./middlewear/credentials.js')
 const corsOptions = require('./.config/corsOptions.js')
+
+
 
 app.use(credentials)
 app.use(cors(corsOptions))
@@ -49,15 +55,12 @@ app.get("/", (req, res) => {
 app.use("/logout", require("./routes/logout.js"))
 
 //app.use("/", require("./routes/homeRoute.js"))
-app.use("/signIn", require("./routes/authRoutes.js"));
-app.use("/searchProfile", require("./routes/searchProfile.js"));
-app.use("/refresh", require("./routes/refresh.js"))
+app.use("/signIn", redirectValidTokens, require("./routes/authRoutes.js"));
+app.use("/searchProfile", redirectValidTokens, require("./routes/searchProfile.js"));
 
 
-app.use("/log", verifyJWT, require("./routes/logRoute.js"));
-app.use("/ownProfile", verifyJWT, require("./routes/ownProfileRoute.js"))
-
-
+app.use("/log", redirectInvalidTokens, require("./routes/logRoute.js"));
+app.use("/ownProfile", redirectInvalidTokens, require("./routes/ownProfileRoute.js"))
 
 
 httpServer.listen(port, () => {
