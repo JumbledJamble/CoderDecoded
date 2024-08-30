@@ -6,7 +6,15 @@ const handleUserSignIn = async (req, res) => {
     
     const foundUsername =  await User.findOne({username : usernameOrEmail}).exec()
     const foundEmail = await User.findOne({email : usernameOrEmail}).exec()
-
+    //console.log(usernameOrEmail)
+    //console.log(password)
+    try{
+        if(foundUsername){
+            
+        }
+    }catch(err){
+        console.log(err)
+    }
     // TODO Also make unsuccessful login attempts able to try again
     if(foundUsername) {    
         if(foundUsername.password == password) {
@@ -68,9 +76,7 @@ const handleUserSignIn = async (req, res) => {
             maxAge: 24 * 60 * 60 * 1000,
         });
 
-        res.redirect('ownProfile')
-
-
+        res.redirect('profile')
     }
 
 }

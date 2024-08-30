@@ -20,7 +20,6 @@ async function refreshCheck(req) {
     }
 
     console.log("User in db with refresh token found. Attempting to verify refresh token...");
-
     try {
         const decoded = await new Promise((resolve, reject) => {
             jwt.verify(
@@ -30,6 +29,7 @@ async function refreshCheck(req) {
                     if (err) {
                         return reject(err);
                     }
+                    req.user = decoded.username
                     resolve(decoded);
                 }
             );
@@ -43,7 +43,7 @@ async function refreshCheck(req) {
         foundUser.refreshToken = refreshToken;
         await foundUser.save();
         req.validation = true;
-        req.user = decoded.username;
+        //req.user = decoded.username;
         return true;
 
     } catch (err) {

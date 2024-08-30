@@ -11,7 +11,7 @@ async function redirectValidTokens(req, res, next) {
     // if user passes the accessCheck, redirect to user's profile
     if(req.validation === true){
         console.log(`Verification successful, redirecting to ${req.user} profile.`)
-        res.redirect("/ownProfile")
+        res.redirect("/profile")
     }
     else {
         // otherwise, check for refreshToken
@@ -23,16 +23,16 @@ async function redirectValidTokens(req, res, next) {
             const accessToken = jwt.sign(
                 {"username" : req.username, },
                 process.env.ACCESS_TOKEN_SECRET,
-                { expiresIn : 1000 * 60 * 60 * 2}
+                { expiresIn : 1000 * 60 * 60 * 2} // 2 hours
             )
 
             res.cookie('accessToken', accessToken, {
                 httpOnly: true,
                 sameSite: 'None',
                 secure: true,
-                maxAge: 2 * 60 * 60 * 1000,
+                maxAge: 2 * 60 * 60 * 1000, // 2 hours
             });
-            res.redirect("/ownProfile")
+            res.redirect("/profile")
         } // if user doesn't pass check, continue as planned
         else {
             console.log("Calling next()")

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create A Project | Coder:Decoded</title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="back"><a href="/profile"><button>Back</button></a></div>
+    <div class = "miniHeader">
+        <div class="quote"></div>
+        <div class="user">Hello, <%= profile %></div>
+        <div class="signOut">
+            <a href="/logout"><button>Sign Out</button></a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="form">
+            <form>
+                <div class="formTitle">
+                    <input type="text" name="title" placeholder="Project Title">
+                </div>
+                <div class="formDescription">
+                    <input type="text" name="description" placeholder="Project Description">
+                </div>
+                <div class="formTasks">
+                    <input type="text" name="tasks" placeholder="Project Tasks">
+                </div>
+                <div class="formTechs">
+                    <div class="dropdowns">
+                        <div class="dropdown javascript"></div>
+                        <div class="dropdown python"></div>
+                        <div class="dropdown C++"></div>
+                        <div class="dropdown C#"></div>
+                    </div>
+                    <div class="techsList"></div>
+                </div>
+                <div class="quote">"... the red button, or the blue button?"</div>
+                <div class="buttons">
+                    <div class="button redBtn"><button type="submit" id="create">Create</button></div>
+                    <div class="button redBtn"><button type="cancel" id="cancel">Cancel</button></div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let techs = "reactJS"//= dbTechs;
+        const form = document.querySelector('form');
+      
+        form.addEventListener('submit', async (e) => {
+          console.log("Submitting form")
+          e.preventDefault();
+      
+      
+          // get values
+          const title = form.title.value;
+          const description = form.description.value;
+          const tasks = form.tasks.value;
+          
+
+          
+      
+          try {
+            const res = await fetch('/login', { 
+              method: 'POST', 
+              body: JSON.stringify({ title, description, tasks, techs }),
+              headers: {'Content-Type': 'application/json'}
+            });
+            const data = await res.json();
+            console.log(data);
+            if (data.errors) {
+              emailError.textContent = data.errors.email;
+              passwordError.textContent = data.errors.password;
+            }
+            if (data.user) {
+              location.assign('/');
+            }
+      
+          }
+          catch (err) {
+            console.log(err);
+          }
+        });
+      </script>
+</body>
+</html>

@@ -2,7 +2,9 @@ const express = require('express')
 const router = express.Router()
 
 router.get('/', (req, res) => {
-    res.render('ownProfile', { profile : req.profile})
+    profile = req.user
+    // db fetch on req.user here to create profile
+    res.render('profile', { profile })
 })
 
 module.exports = router;

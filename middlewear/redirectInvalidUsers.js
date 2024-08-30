@@ -21,14 +21,14 @@ async function redirectInvalidTokens(req, res, next) {
             const accessToken = jwt.sign(
                 {"username" : req.username, },
                 process.env.ACCESS_TOKEN_SECRET,
-                { expiresIn : 1000 * 60 * 60 * 2}
+                { expiresIn : 1000 * 60 * 60 * 2} // 2 hours
             )
 
             res.cookie('accessToken', accessToken, {
                 httpOnly: true,
                 sameSite: 'None',
                 secure: true,
-                maxAge: 2 * 60 * 60 * 1000,
+                maxAge: 2 * 60 * 60 * 1000, // 2 hours
             });
             next();
         } // if user doesn't pass check, redirect to /signIn

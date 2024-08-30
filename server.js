@@ -56,11 +56,13 @@ app.use("/logout", require("./routes/logout.js"))
 
 //app.use("/", require("./routes/homeRoute.js"))
 app.use("/signIn", redirectValidTokens, require("./routes/authRoutes.js"));
-app.use("/searchProfile", redirectValidTokens, require("./routes/searchProfile.js"));
+app.use("/searchProfile", require("./routes/searchProfile.js"));
 
 
-app.use("/log", redirectInvalidTokens, require("./routes/logRoute.js"));
-app.use("/ownProfile", redirectInvalidTokens, require("./routes/ownProfileRoute.js"))
+app.use("/createProject", redirectInvalidTokens, require("./routes/createProjectRoute.js"))
+app.use("/editProject", redirectInvalidTokens, require("./routes/editProjectRoute.js"))
+app.use("/logProject", redirectInvalidTokens, require("./routes/logProjectRoute.js"));
+app.use("/profile", redirectInvalidTokens, require("./routes/profileRoute.js"))
 
 
 httpServer.listen(port, () => {

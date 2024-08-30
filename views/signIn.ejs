@@ -33,7 +33,7 @@
                 </div>
                 <span>or use your email password</span>
                 <input name="usernameOrEmail" type="text" placeholder="Username or Email" id="usernameOrEmail">
-                <input name="password" type="text" placeholder="Password" id="password">
+                <input name="password" type="password" placeholder="Password" id="password">
                 <div class="checkbox" id="checkbox">Remember me?<input type="checkbox" name="remember" id="remember"></div>
                 
                 <a href="#">Forget Your Password?</a>
@@ -64,7 +64,7 @@
     const passwordError = document.querySelector('.password.error');
   
     form.addEventListener('submit', async (e) => {
-        console.log("trynig here")
+      console.log("trying here")
       e.preventDefault();
   
       // reset errors

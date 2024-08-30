@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= profile %> | Profile </title>
+    <link rel="stylesheet" href="/styles/profile.css">
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div class = "miniHeader">
+        <div class="quote"><em>"I'll show you how deep this rabbit hole goes..."</em></div>
+        <div class="signOut">
+            <a href="/logout"><button>Sign Out</button></a>
+        </div>
+    </div>
+    
+    <div class="user">Hello, <%= profile %></div>
+    
+    <a href="/editProject"><button>Edit a project</button></a>
+    <a href="/createProject"><button>Create a project</button></a>
+
+</body>
+</html>
