@@ -2,7 +2,7 @@ const express = require("express")
 const router = express.Router()
 
 router.get("/", (req, res) => {
-    res.render("createProject")
+    res.render("createProject", {profile : req.user})
 })
 
 router.post("/", (req, res) => {

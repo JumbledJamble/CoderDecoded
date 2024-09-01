@@ -1,0 +1,220 @@
+:root {
+    --green: rgb(0, 255, 0);
+    --blue: rgb(45, 80, 253);
+    --red: #ff1b1b;
+    --bg1: rgba(93, 122, 141, 0.205);
+    --bg2: rgba(37, 59, 78, 0.801);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+canvas{
+    position:absolute;
+    z-index: -1;
+}
+
+body{
+    background-color: black;
+    color: var(--green);
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 50px;
+}
+
+img{
+    width: 100%;
+    max-width: 20px;
+}
+
+.back{
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    width: 3rem;
+    height: 2rem;
+}
+
+.signOut{
+    position: absolute;
+    right: 10%;
+    top: 5%;
+    width: 3rem;
+    height: 2rem;
+}
+
+.miniHeader{
+    width: 60%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.user{
+    font-size: 2rem;
+}
+
+.container{
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg1);
+    opacity: .8;
+    border: solid 1px silver;
+    border-radius: 2px;
+    backdrop-filter: blur(2px);
+}
+
+form{
+    width: 60%;
+}
+
+form label{
+    color: var(--blue);
+}
+
+.form{
+    padding: 10px 0;
+}
+
+.formTitle{
+    display: flex;
+    flex-direction: column;
+}
+
+.formTitle input{
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.formDescription{
+    display: flex;
+    flex-direction: column;
+}
+
+.formDescription input{
+    min-height: 5rem;
+}
+
+.formTasks{
+    display: flex;
+    flex-direction: column;
+}
+
+.formTasks input{
+    min-height: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.taskList{
+    width: 100%;
+    color: white;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.formTechs{
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdowns{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.dropdown{
+    background-color: var(--bg2);
+    display: flex;
+    flex-grow: 1;
+    margin: 5px 10px;
+    padding: 3px 5px;
+    border: solid 1px white;
+    border-radius: 3px;
+    height: 2rem;
+    align-items: center;
+    font-weight: 700;
+    font-size: .75rem;
+    position: relative;
+}
+
+.dropdownImage{
+    width: 1rem;
+    max-width: 100%;
+    margin-right: 5px;
+}
+/*        */
+.menu{
+    background-color: black;
+    position: absolute;
+    top: 3rem;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.invisible{
+    display: none;
+    opacity: 0;
+}
+
+.option{
+    border: solid 1px var(--green);
+    margin: 1px 0;
+    width: 60px;
+}
+
+
+.option::hover{
+    background-color: rgba(71, 94, 114, 0.801);
+}
+
+.active{
+    display: block;
+    opacity: 1;
+}
+
+
+
+
+/*         */
+.techsList{
+    min-height: 200px;
+}
+
+.techItem{
+    border: solid 1px white;
+    width: 50%;
+}
+
+.buttons{
+    display: flex;
+    width: 80%;
+    justify-content: space-around;
+}
+
+.button button{
+    background-color: rgba(0, 0, 0, 0.342);
+    font-weight: 700;
+    border-radius: 3px;
+    height: 2rem;
+    width: 6rem;
+}
+
+.blueBtn button{
+    margin: 5px 0;
+    color: var(--blue);
+    border: solid 3px var(--blue);
+}
+
+.redBtn button{
+    margin: 5px 0;
+    color: var(--red);
+    border: solid 3px var(--red);
+}

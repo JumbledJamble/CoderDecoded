@@ -3,11 +3,11 @@ const router = express.Router();
 const { handleUserSignIn } = require('../controllers/signInController.js')
 const { handleUserSignUp } = require('../controllers/signUpController.js')
 
-router.get("/signIn", (req, res) => {
+router.get("/", (req, res) => {
     res.render('signIn')
 })
 
-router.post("/signIn", handleUserSignIn)
+router.post("/", handleUserSignIn)
 
 
 
@@ -15,7 +15,7 @@ router.get("/signUp", (req, res) => {
     res.render('signUp')
 })
 
-router.post("/", handleUserSignUp, (req, res) => {
+router.post("/signUp", handleUserSignUp, (req, res) => {
     console.log("Logging sign in attempt from /routes/authRoutes.js")
 }) 
 
