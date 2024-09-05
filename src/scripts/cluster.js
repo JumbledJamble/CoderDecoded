@@ -39,7 +39,7 @@ export class Cluster{
     }]
     x;
     y;
-    radius = 50;
+    radius = 30;
     fontSize = 14;
     middleLeft;
     middleRight;
@@ -59,7 +59,6 @@ export class Cluster{
 
 
     softReset(){
-        console.log("resetting...")
         let rangeWidth = this.middleRight - this.middleLeft;
         let maxX = this.width;
         
@@ -71,10 +70,10 @@ export class Cluster{
             this.x = this.middleRight + Math.random() * (maxX - this.middleRight);
         }
         // preset height offset is 252px, which will mean that streams only occasionally fall off the page
-        this.y = Math.random()*(this.height-252);
+        this.y = (Math.random()*this.height)-200;
 
-        this.ctx.fillStyle = '#FFF';
-        this.ctx.fillRect(this.x, this.y, 20, 20)
+        //this.ctx.fillStyle = '#FFF';
+        //this.ctx.fillRect(this.x, this.y, 20, 20)
         
         this.streams.forEach(stream => {
             stream.active = false;
@@ -93,7 +92,10 @@ export class Cluster{
             
             stream.column = this.x-this.radius+(Math.random()*this.radius*2)
             stream.height = this.y-this.radius+(Math.random()*this.radius*3)
-            stream.active = true;
+            setTimeout(30000, ()=>{
+                stream.active = true;
+            })
+            
         })   
         
     }

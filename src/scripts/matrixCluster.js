@@ -22,7 +22,7 @@ let middleAreaRight = width*4/7;
 
 let cluster1 = new Cluster(middleAreaLeft, middleAreaRight, height, width, ctx);
 let cluster2 = new Cluster(middleAreaLeft, middleAreaRight, height, width, ctx);
-let cluster3 = new Cluster(middleAreaLeft, middleAreaRight, height, width, ctx);
+//let cluster3 = new Cluster(middleAreaLeft, middleAreaRight, height, width, ctx);
 
 function drawClusters(){
     // draw clear opaque black rect to give the illusion of a fading depth
@@ -31,7 +31,7 @@ function drawClusters(){
 
     cluster1.draw()
     cluster2.draw()
-    cluster3.draw()
+    //cluster3.draw()
 }
 
 setInterval(drawClusters, 50)

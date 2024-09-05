@@ -24,8 +24,11 @@ const dropdowns = [
 ]
 
 let currentTasks = ["Add Ability To Save Decks", "Add Responsive Dom Interaction"];
-let currentTechs = ["ReactJS", "MongoDB"];
+let currentTechs = [];
 
+export const inputs = {
+    currentTasks, currentTechs,
+}
 
 window.onload = setupPage;
 
@@ -36,13 +39,37 @@ function setupPage(){
     })
 }
 
+taskList.addEventListener("click", (event) => {
+    console.log(event.target)
+
+    try{
+        if(event.target.contains(event.target)){
+            
+        taskList.removeChild(event.target)
+        console.log(`${event.target.innerText} removed`)
+        }
+    }catch{
+        (e) => {
+            console.log(e)
+        }
+    }
+})
+
+techList.addEventListener("click", (event) => {
+    techList.removeChild(event.target);
+})
 
 function setupDropdown(dropdownInfo){
-
     let options = dropdownInfo.options;
     let menu = dropdownInfo.menu;
     let dropdown = dropdownInfo.dropdown;
-    dropdown.addEventListener("click", ()=> {
+
+
+    dropdown.addEventListener("click", createMenu)
+
+
+
+    function createMenu(event){
         // for each option that menu can have, create a new element to populate the new menu
         options.forEach(option => {
             if(!currentTechs.includes(option)){
@@ -50,32 +77,45 @@ function setupDropdown(dropdownInfo){
                 newElement.classList.add('option');
                 newElement.setAttribute('id', `${option}`)
                 newElement.innerText = `${option}`
-                // newElement.addEventListener("click", addToList)
                 menu.appendChild(newElement)
             }
         })
-        // after all children have been created, make menu visible
-        menu.classList.toggle('invisible');
-        // add event listener to set the menu back to invisible
-        if (!menu.classList.contains('invisible')) {
-            const closeMenu = (event) => {
-                if (!dropdown.contains(event.target) && !menu.contains(event.target)) {
-                    menu.classList.add('invisible');
-                    window.removeEventListener("click", closeMenu);
-                }
-            };
-            window.addEventListener("click", closeMenu);
+
+            // after all children have been created, make menu visible
+    //menu.classList.toggle('invisible');
+    // add event listener to set the menu back to invisible
+    if (!menu.classList.contains('invisible')) {
+        window.addEventListener("click", closeMenu);
+    }
+    dropdown.removeEventListener("click", createMenu)
+    }
+
+    function closeMenu(event){
+            
+        if(menu.contains(event.target)){
+            currentTechs.push(event.target.id)
+            console.log(`${event.target.id} added to list. The list:`)
+
+            let newTech = document.createElement('div');
+            newTech.innerText = event.target.id;
+            newTech.setAttribute('id', `${event.target.id}`)
+            newTech.classList.add('techItem')
+            techList.appendChild(newTech)
+
         }
-    })
+        if (!dropdown.contains(event.target) && !menu.contains(event.target)) {
+            while(menu.hasChildNodes()){
+                menu.removeChild(menu.firstChild)
+            }
+            setupDropdown(dropdownInfo)
+            window.removeEventListener("click", closeMenu);
+
+        }
+    };
+
 
 }
 
-taskList.addEventListener("click", () => {
-
-})
 
 
-
-function addToList(item, list){
-    // create
-}
+// module.exports = { currentTasks, currentTechs }

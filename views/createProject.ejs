@@ -14,13 +14,15 @@
   
   
   
-  
+<div class="user">Hello, <%= profile %></div>
+  <div class="quoteBox">
+    <div class="quote">"Random quote here"</div>
+  </div>
+
 <div class="container">
   <div class = "miniHeader">
-    <div class="user">Hello, <%= profile %></div>
-    <div class="quote">"Random quote here"</div>
-    <div class="back"><a href="/profile"><button>Back</button></a></div>
-    <a class="signOut" href="/logout"><button>Sign Out</button></a>
+    <!--<div class="back"><a href="/profile"><button>Back</button></a></div>
+    <a class="signOut" href="/logout"><button>Sign Out</button></a>-->
   </div>
   
   <form>
@@ -28,10 +30,15 @@
       <label for="title">Project Title</label>
       <input type="text" name="title" id="title" placeholder="Default Name">
     </div>
+  
+  
     <div class="form formDescription">
       <label for="description">Project Description</label>
-      <input type="text" name="description" id="description" placeholder="Project Description">
+      <!-- Add a class to this vvvvv input box -->
+      <input type="text" class="inputBox" name="description" id="description" placeholder="Project Description">
     </div>
+    
+    
     <div class="form formTasks">
       <label for="tasks">Project Tasks (optional)</label>
       <input type="text" name="tasks" id="tasks" placeholder="First task...">
@@ -40,92 +47,68 @@
         <div class="taskItem">- Add Ability To Save Decks</div>
     </div>
   </div>
-    <div class="form formTechs">
+    
+  
+  <div class="form formTechs">
       <div class="dropdowns">
+
+        
         <div class="dropdown" id="jsDropdown">
           <div class="dropdownInfo">
             <div class="dropdownImage"><img src="/images/002-js.png"></div>
             <div class="dropdownTitle">Javascript</div>
           </div>
-          <div class="menu invisible" id="jsMenu"></div>
+          <div class="menu" id="jsMenu"></div>
         </div>
+
+
         <div class="dropdown" id="pythonDropdown">
           <div class="dropdownInfo">
             <div class="dropdownImage"><img src="/images/001-python.png"></div>
             <div class="dropdownTitle">Python</div>
           </div>
-          <div class="menu invisible" id="pythonMenu"></div>
+          <div class="menu" id="pythonMenu"></div>
         </div>
+
+
         <div class="dropdown" id="cppDropdown">
           <div class="dropdownInfo">
             <div class="dropdownImage"><img src="/images/003-c.png"></div>
             <div class="dropdownTitle">C++</div>
           </div>
-          <div class="menu invisible" id="cppMenu"></div>
+          <div class="menu" id="cppMenu"></div>
         </div>
+
+
         <div class="dropdown" id="csDropdown">
           <div class="dropdownInfo">
             <div class="dropdownImage"><img src="/images/004-c-sharp.png"></div>
             <div class="dropdownTitle">C#</div>
           </div>
-          <div class="menu invisible" id="csMenu"></div>
+          <div class="menu" id="csMenu"></div>
         </div>
       </div>
+
       <div class="techList" id="techList">
-        <div class="techItem">Node</div>
-        <div class="techItem">Express</div>
-        <div class="techItem">Websockets</div>
       </div>
     </div>
+    
+    
+    
+    
     <div class="quote">"... the red button, or the blue button?"</div>
-      <div class="form buttons">
-          <div class="button redBtn"><button type="submit" id="create">Create</button></div>
-          <div class="button blueBtn"><button type="cancel" id="cancel">Cancel</button></div>
-      </div>
   </form>
+  
 </div>
+  <div class="form buttons">
+    <div class="button redBtn"><button type="submit" id="create">Create</button></div>
+    <div class="button blueBtn"><button type="cancel" id="cancel">Cancel</button></div>
+  </div>
 </div>
-    <!--<script src="dropdown.js"></script> -->
-    <script>
-        let techs = "reactJS"//= dbTechs;
-        const form = document.querySelector('form');
-      
-        form.addEventListener('submit', async (e) => {
-          console.log("Submitting form")
-          e.preventDefault();
-      
-      
-          // get values
-          const title = form.title.value;
-          const description = form.description.value;
-          const tasks = form.tasks.value;
-          
 
-          
-      
-          try {
-            const res = await fetch('/login', { 
-              method: 'POST', 
-              body: JSON.stringify({ title, description, tasks, techs }),
-              headers: {'Content-Type': 'application/json'}
-            });
-            const data = await res.json();
-            console.log(data);
-            if (data.errors) {
-              emailError.textContent = data.errors.email;
-              passwordError.textContent = data.errors.password;
-            }
-            if (data.user) {
-              location.assign('/');
-            }
-      
-          }
-          catch (err) {
-            console.log(err);
-          }
-        });
-      </script>
-      <script src="/scripts/create.js"></script>
+<div class="footer"></div>
+      <script type="module" src="/scripts/create.js"></script>
+      <script type="module" src="/scripts/createFetch.js"></script>
   <!--
   <a href="https://www.flaticon.com/free-icons/python" title="python icons">Python icons created by Freepik - Flaticon</a>
   -->

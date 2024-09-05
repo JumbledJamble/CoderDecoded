@@ -1,7 +1,7 @@
 :root {
-    --green: rgb(0, 255, 0);
-    --blue: rgb(45, 80, 253);
-    --red: #ff1b1b;
+    --green: rgb(50, 255, 50);
+    --blue: rgb(180, 180, 255);
+    --red: rgb(255, 80, 80);
     --bg1: rgba(93, 122, 141, 0.205);
     --bg2: rgba(37, 59, 78, 0.801);
 }
@@ -14,22 +14,29 @@
 canvas{
     position:absolute;
     z-index: -1;
+    top: 0;
+    left: 0;
 }
 
 body{
     background-color: black;
+    overflow-x: hidden;
     color: var(--green);
     width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding-top: 50px;
+    font-family: monospace;
 }
 
 img{
     width: 100%;
     max-width: 20px;
+}
+
+input {
+    color: var(--green);
 }
 
 .back{
@@ -48,14 +55,51 @@ img{
     height: 2rem;
 }
 
-.miniHeader{
-    width: 60%;
-    display: flex;
-    justify-content: space-around;
+a button{
+    color: var(--red);
+    text-shadow: 0px 0px 2px red;
+    background-color: var(--bg1);
+    opacity: 0.8;
+    border: solid 1px white;
+    box-shadow: 0px 0px 2px silver;
+}
+
+a button:hover{
+    color: white;
+    text-shadow: 0px 0px 1px silver;
+    background-color: var(--bg1);
+    opacity: 0.8;
+    border: solid 1px white;
+    box-shadow: 0px 0px 4px silver;
+}
+
+a button:active{
+    color: white;
+    text-shadow: 0px 0px 1px silver;
+    background-color: var(--bg1);
+    opacity: 0.8;
+    border: solid 1px white;
+    box-shadow: 0px 0px 4px silver;
 }
 
 .user{
-    font-size: 2rem;
+    font-size: 2.5rem;
+    text-shadow: 0px 0px 2px green;
+    margin-top: 40px;
+
+}
+
+.quoteBox{
+    width: 45%;
+    display: flex;
+    justify-content: end;
+    margin-top: 10px;
+    
+}
+
+.quote{
+    text-shadow: 0px 0px 2px green;
+    margin-bottom: 10px;
 }
 
 .container{
@@ -66,9 +110,16 @@ img{
     align-items: center;
     background-color: var(--bg1);
     opacity: .8;
-    border: solid 1px silver;
+    /*border: solid 1px white;*/
+    box-shadow: 0px 0px 2px silver;
     border-radius: 2px;
     backdrop-filter: blur(2px);
+}
+
+.miniHeader{
+    width: 60%;
+    display: flex;
+    justify-content: space-around;
 }
 
 form{
@@ -76,7 +127,9 @@ form{
 }
 
 form label{
-    color: var(--blue);
+    font-size: large;
+    color: var(--green);
+    text-shadow: 0px 0px 2px green;
 }
 
 .form{
@@ -89,8 +142,11 @@ form label{
 }
 
 .formTitle input{
-    font-size: 2rem;
-    font-weight: 700;
+    background-color: var(--bg1);
+    opacity: 0.8;
+    margin-top: 5px;
+    border: none;
+    box-shadow: 0px 0px 2px silver;
 }
 
 .formDescription{
@@ -100,6 +156,23 @@ form label{
 
 .formDescription input{
     min-height: 5rem;
+    background-color: var(--bg1);
+    opacity: 0.8;
+    margin-top: 5px;
+    border: none;
+    box-shadow: 0px 0px 2px silver;
+}
+
+::placeholder{ 
+    text-align: left;
+    text-shadow: 0px 0px 0.5px silver;
+    text-transform: uppercase;
+    font-size: x-small;
+}
+
+.inputBox{
+    padding-left: 5px;
+    /* padding-bottom: 100px;*/
 }
 
 .formTasks{
@@ -110,13 +183,25 @@ form label{
 .formTasks input{
     min-height: 1.5rem;
     margin-bottom: 5px;
+    margin-top: 5px;
+    background-color: var(--bg1);
+    opacity: .8;
+    border:none;
+    box-shadow: 0px 0px 2px silver;
 }
 
 .taskList{
     width: 100%;
-    color: white;
-    text-decoration: underline;
+    color: var(--blue);
+    text-shadow: 0px 0px 3px blue;
     font-weight: 600;
+}
+
+.taskItem:hover{
+    text-decoration: underline;
+    cursor: pointer;
+    color: white;
+    text-shadow: 0px 0px 1px silver;
 }
 
 .formTechs{
@@ -136,7 +221,8 @@ form label{
     flex-grow: 1;
     margin: 5px 10px;
     padding: 3px 5px;
-    border: solid 1px white;
+    border: none;
+    box-shadow: 0px 0px 2px silver;
     border-radius: 3px;
     height: 2rem;
     align-items: center;
@@ -145,12 +231,17 @@ form label{
     position: relative;
 }
 
+.dropdown:hover{
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.137);
+}
+
 .dropdownImage{
     width: 1rem;
     max-width: 100%;
     margin-right: 5px;
 }
-/*        */
+
 .menu{
     background-color: black;
     position: absolute;
@@ -193,6 +284,11 @@ form label{
     width: 50%;
 }
 
+.techItem:hover{
+    cursor:pointer;
+    background-color: rgba(255, 255, 255, 0.137);
+}
+
 .buttons{
     display: flex;
     width: 80%;
@@ -211,10 +307,20 @@ form label{
     margin: 5px 0;
     color: var(--blue);
     border: solid 3px var(--blue);
+    text-shadow: 0px 0px 3px blue;
+    box-shadow: 0px 0px 3px blue;
+
 }
 
 .redBtn button{
     margin: 5px 0;
     color: var(--red);
     border: solid 3px var(--red);
+    text-shadow: 0px 0px 2px red;
+    box-shadow: 0px 0px 2px red;
+}
+
+.footer{
+    height: 100px;
+    background-color: white;
 }
