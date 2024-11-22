@@ -111,3 +111,6 @@ function initializeStream(streamNumber){
 setInterval(drawStreams, 30);
 
 // TODO add flashing white cursor
+
+
+console.log("working?")

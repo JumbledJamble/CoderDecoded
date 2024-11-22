@@ -7,11 +7,19 @@ const projectSchema = new Schema({
         required : true
     },
     owner: {
-        type : String,
+        type : Object,
         required : true
+    },
+    description : {
+        type : String,
+        required : true,
     },
     contributors: {
         type : Array,
+        required : true,
+    },
+    totalTasks : {
+        type : Number,
         required : true,
     },
     techs: {
@@ -20,6 +28,10 @@ const projectSchema = new Schema({
     },
     tasks: {
         type : Array,
+        required : true,
+    },
+    active: {
+        type : Boolean,
         required : true,
     }
 })

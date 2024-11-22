@@ -5,20 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= profile %> | Profile </title>
     <link rel="stylesheet" href="/styles/profile.css">
+    <script type="module" src="/scripts/matrixEffects/matrixCluster.js" defer></script>
 </head>
 <body>
-    <canvas id="canvas"></canvas>
-    <div class = "miniHeader">
-        <div class="quote"><em>"I'll show you how deep this rabbit hole goes..."</em></div>
-        <div class="signOut">
-            <a href="/logout"><button>Sign Out</button></a>
+    <canvas class="canvas" id="canvas"></canvas>
+    <div class="mainWrapper">
+        <div class="nav">
+            <div class="user">Welcome, <%= profile %></div>
+            <div class="quote"><em>"I'll show you how deep this rabbit hole goes..."</em></div>
+            <div class="logout" id="logout"><button class="innerLogout">Sign Out</button></div>
+        </div>
+
+        <div class="mainContainer">
+
+            
+
+            <div class="allProjects">
+                <div class="projectTypes">
+                    <div class="projectType projectTypeLeft" id="openProjects">Open Projects</div>
+                    <div class="projectType projectTypeLeft" id="closedProjects">Closed Projects</div>
+                    <div class="projectType" id="newProject">Create New Project</div>
+                </div>
+                <div class="displayProjects" id="displayProjects"></div>
+            </div>
+
+            <div class="overviewContainer">
+                <div class="teaser">Overview: </div>
+                <div class="graphs active">
+                    <div class="graph">
+                        <div class="graphTitle">Time Per Project:</div>
+                        <canvas class="lineGraph" id="timePerProj"></canvas>
+                    </div>
+                    <div class="graph">
+                        <div class="graphTitle">Percent Of Time Per Project:</div>
+                        <canvas class="pieGraph" id="percentTimePerProj"></canvas>
+                    </div>
+                    <div class="graph">
+                        <div class="graphTitle">Open Tasks Per Project:</div>
+                        <canvas class="barGraph" id="openTasksPerProj"></canvas>
+                    </div>
+                    <div class="graph">
+                        <div class="graphTitle">Libraries and Frameworks Per Project:</div>
+                        <canvas class="barGraph" id="techsPerProj"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="/scripts/profile/profile.js" defer></script>
     
-    <div class="user">Hello, <%= profile %></div>
     
-    <a href="/editProject"><button>Edit a project</button></a>
-    <a href="/createProject"><button>Create a project</button></a>
-
+    
 </body>
 </html>

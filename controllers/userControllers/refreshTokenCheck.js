@@ -1,22 +1,21 @@
 const jwt = require('jsonwebtoken');
-const User = require('../models/User.js')
+const User = require('../../models/User.js')
 
 async function refreshCheck(req) {
-    req.validation = false;
     let refreshToken;
 
     if (req.cookies?.refreshToken) {
         refreshToken = req.cookies.refreshToken;
     } else {
         console.log("No refresh token found.");
-        return;
+        return false;
     }
 
     const foundUser = await User.findOne({ refreshToken: refreshToken });
 
     if (!foundUser) {
         console.log("No user in the db found with that refresh token. Validation failed.");
-        return;
+        return false;
     }
 
     console.log("User in db with refresh token found. Attempting to verify refresh token...");
@@ -29,7 +28,6 @@ async function refreshCheck(req) {
                     if (err) {
                         return reject(err);
                     }
-                    req.user = decoded.username
                     resolve(decoded);
                 }
             );
@@ -37,13 +35,10 @@ async function refreshCheck(req) {
 
         if (decoded.username !== foundUser.username) {
             console.log("Incorrect username for matching refresh token.");
-            return;
+            return false;
         }
-
-        foundUser.refreshToken = refreshToken;
-        await foundUser.save();
-        req.validation = true;
-        //req.user = decoded.username;
+        // send another access token here
+        req.user = {username : decoded.username, _id : foundUser._id.toString()}
         return true;
 
     } catch (err) {

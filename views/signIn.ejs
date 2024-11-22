@@ -10,92 +10,32 @@
 </head>
 
 <body>
+  <canvas class="canvas" id="canvas"></canvas>
+  <div class="container">
+    <div class="centerPiece">
+      <form id="form" action="/signIn" method="POST">
+        <h1>Sign In</h1>
+        
+        <input name="usernameOrEmail" type="text" placeholder="Username or Email" id="usernameOrEmail">
+        <input name="password" type="password" placeholder="Password" id="password">
+        <div class="checkbox" id="checkbox">Remember me?<input type="checkbox" name="remember" id="remember"></div>
+        
+        <a href="#">Forget Your Password?</a>
+        <div class="signin">
+          <button type="submit" id="login">Sign In</button>
 
-    <div class="container" id="container">
-        <div class="form-container sign-up">
-            <form>
-                <h1>Create Account</h1>
-                <div class="social-icons">
-                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
-                </div>
-                <span>or use your email for registeration</span>
-                <input type="text" placeholder="Name">
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Password">
-                <button>Sign Up</button>
-            </form>
         </div>
-        <div class="form-container sign-in">
-            <form action="/signin" method="post">
-                <h1>Sign In</h1>
-                <div class="social-icons">
-                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
-                </div>
-                <span>or use your email password</span>
-                <input name="usernameOrEmail" type="text" placeholder="Username or Email" id="usernameOrEmail">
-                <input name="password" type="password" placeholder="Password" id="password">
-                <div class="checkbox" id="checkbox">Remember me?<input type="checkbox" name="remember" id="remember"></div>
-                
-                <a href="#">Forget Your Password?</a>
-                <button>Sign In</button>
-            </form>
-        </div>
-        <div class="toggle-container">
-            <div class="toggle">
-                <div class="toggle-panel toggle-left">
-                    <h1>Welcome, Coder.</h1>
-                    <p>Register here to get Decoded.</p>
-                    <button class="hidden" id="login">Sign In</button>
-                </div>
-                <div class="toggle-panel toggle-right">
-                    <h1>Welcome Back.</h1>
-                    <p>Log in to get Decoded.</p>
-                    <button class="hidden" id="register">Sign Up</button>
-                </div>
-            </div>
-        </div>
+    </form>
     </div>
-
-    <script src="/scripts/auth.js"></script>
+  </div>
+            
+        
+    <script type ="module" src ="/scripts/matrixEffects/matrixCluster.js"></script>
 </body>
 <script>
     const form = document.querySelector('form');
-    const emailError = document.querySelector('.email.error');
-    const passwordError = document.querySelector('.password.error');
-  
-    form.addEventListener('submit', async (e) => {
-      console.log("trying here")
-      e.preventDefault();
-  
-      // reset errors
-      emailError.textContent = '';
-      passwordError.textContent = '';
-  
-      // get values
-      const email = form.email.value;
-      const password = form.password.value;
-      const remember = form.remember.value;
-  
-      try {
-        const res = await fetch('/login', { 
-          method: 'POST', 
-          body: JSON.stringify({ emailOrUsername, password, remember }),
-          headers: {'Content-Type': 'application/json'}
-        });
-        const data = await res.json();
-        console.log(data);
-        if (data.errors) {
-          emailError.textContent = data.errors.email;
-          passwordError.textContent = data.errors.password;
-        }
-        if (data.user) {
-          location.assign('/');
-        }
-  
-      }
-      catch (err) {
-        console.log(err);
-      }
+    form.addEventListener('submit', async () => {
+      console.log("Submitting")
     });
   </script>
 </html>

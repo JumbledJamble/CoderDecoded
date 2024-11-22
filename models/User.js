@@ -28,11 +28,18 @@ const userSchema = new Schema({
         type: Array,
         required: true,
     },
-    invitations:{
+    notifications:{
         type: Array,
         required: true,
     },
-    refreshToken: String
+    refreshToken: String,
+    logsCreated: {
+        type: Number,
+        required: true,
+    },
+    logs: {
+        type: Array
+    }
 })
 
 module.exports = mongoose.model('Users', userSchema)

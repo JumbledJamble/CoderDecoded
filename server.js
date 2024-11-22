@@ -54,9 +54,8 @@ app.get("/", (req, res) => {
 
 app.use("/logout", require("./routes/logout.js"))
 
-//app.use("/", require("./routes/homeRoute.js"))
 app.use("/signIn", redirectValidTokens, require("./routes/authRoutes.js"));
-app.use("/searchProfile", require("./routes/searchProfile.js"));
+app.use("/searchProfile", require("./routes/searchRoute.js"));
 
 
 app.use("/createProject", redirectInvalidTokens, require("./routes/createProjectRoute.js"))

@@ -1,12 +1,11 @@
 const jwt = require('jsonwebtoken');
-const { accessCheck } = require('../controllers/accessTokenCheck')
-const { refreshCheck } = require('../controllers/refreshTokenCheck')
+const { accessCheck } = require('../controllers/userControllers/accessTokenCheck')
+const { refreshCheck } = require('../controllers/userControllers/refreshTokenCheck')
 
 
 // this middlewear is to protect unvalidated users from accessing protected routes
 async function redirectInvalidTokens(req, res, next) {
-    req.validation = false;
-    await accessCheck(req);
+    req.validation = await accessCheck(req);
     // if user passes the accessCheck, continue as planned
     if(req.validation === true){
         console.log("Validation successful. Calling next()")

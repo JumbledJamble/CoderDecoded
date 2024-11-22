@@ -1,36 +1,31 @@
-const User = require('../models/User');
+const User = require('../../models/User');
 const jwt = require('jsonwebtoken')
 
 const handleUserSignIn = async (req, res) => {
     const { usernameOrEmail, password, remember } = req.body
-    
+    console.log(usernameOrEmail)
+    console.log(password)
+    console.log(remember)
+
     const foundUsername =  await User.findOne({username : usernameOrEmail}).exec()
     const foundEmail = await User.findOne({email : usernameOrEmail}).exec()
-    //console.log(usernameOrEmail)
-    //console.log(password)
-    try{
-        if(foundUsername){
-            
-        }
-    }catch(err){
-        console.log(err)
-    }
-    // TODO Also make unsuccessful login attempts able to try again
+
     if(foundUsername) {    
         if(foundUsername.password == password) {
-            signInUser(foundUsername.username);
+            signInUser(foundUsername.username, remember);
         }else{
-            res.status(404).send("Incorrect password, please try again")
+            res.status(404).json({error: "Incorrect password, please try again"})
         }
     } 
     else if(foundEmail) {
         if(foundEmail.password == password) {
-            signInUser(foundEmail.username);
-        } else {res.status(404).send("Incorrect password, please try again")}
-    } else { res.status(404).send(`User not found. Incorrect Email or Password`)}
+            signInUser(foundEmail.username, remember);
+        } else {
+            res.status(404).json({error: "Incorrect password, please try again"})}
+    } else { res.status(404).json({error: 'User not found. Incorrect Username/Email'})}
 
 
-    async function signInUser (username) {
+    async function signInUser (username, remember) {
         console.log("Sign in successful")
         let accessTime, refreshTime;
         console.log(`remember is ${remember}`)
@@ -56,10 +51,13 @@ const handleUserSignIn = async (req, res) => {
         )
 
         const user = await User.findOne({ username }).exec();
+        if(!user){
+            console.log("User not found during sign in at controller")
+        }
         user.refreshToken = refreshToken;
         await user.save();
 
-        req.user = username;
+        req.user = {username : username, _id : user._id};
 
         console.log(`Sending ${username} an access token and a refresh token.`)
 
@@ -75,8 +73,7 @@ const handleUserSignIn = async (req, res) => {
             secure: true,
             maxAge: 24 * 60 * 60 * 1000,
         });
-
-        res.redirect('profile')
+        res.render('profile')
     }
 
 }

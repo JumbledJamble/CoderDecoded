@@ -5,20 +5,17 @@ const cookieParser = require("cookie-parser");
 router.use(cookieParser())
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
+const createProject = require('../controllers/projectControllers/createProject')
 
 
 router.get("/", (req, res) => {
-    res.render("createProject", {profile : req.user})
+    res.render("createProject", {profile : req.user.username})
 })
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
     const { project } = req.body
-
-    console.log("Project Submitted:")
-    console.log(project)
-    res.json({project})
-    //handleUserPost(project)
-    // redirect to the edit page for the project
+    let projID = await createProject(project, req.user)
+    res.json({projID : projID})
 })
 
 module.exports = router;

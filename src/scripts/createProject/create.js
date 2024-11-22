@@ -16,6 +16,10 @@ const pythonMenu = document.getElementById('pythonMenu')
 const cppMenu = document.getElementById('cppMenu')
 const csMenu = document.getElementById('csMenu')
 
+const taskInput = document.getElementById("tasks")
+const titleInput = document.getElementById("title")
+const descriptionInput = document.getElementById("description")
+
 const dropdowns = [
     {dropdown : jsDropdown, options : jsOptions, menu : jsMenu},
     {dropdown : cppDropdown, options : cppOptions, menu : cppMenu},
@@ -23,8 +27,10 @@ const dropdowns = [
     {dropdown : pythonDropdown, options : pythonOptions, menu : pythonMenu}
 ]
 
-let currentTasks = ["Add Ability To Save Decks", "Add Responsive Dom Interaction"];
-let currentTechs = [];
+const currentTasks = [];
+const currentTechs = [];
+
+import { createTask } from "./createTask.js"
 
 export const inputs = {
     currentTasks, currentTechs,
@@ -37,11 +43,20 @@ function setupPage(){
     dropdowns.forEach(dropdownInfo => {
         setupDropdown(dropdownInfo);
     })
+
+    console.log("Adding event listener to taskInput")
+    console.log(taskInput)
+    taskInput.addEventListener("keydown", (e) => {
+        if(e.key === "Enter" && taskInput.value != ''){
+            e.preventDefault()
+            createTask(taskList, taskInput.value, currentTasks)
+            taskInput.value = ''
+        }
+    })
+
 }
 
 taskList.addEventListener("click", (event) => {
-    console.log(event.target)
-
     try{
         if(event.target.contains(event.target)){
             
@@ -59,7 +74,15 @@ techList.addEventListener("click", (event) => {
     techList.removeChild(event.target);
 })
 
-function setupDropdown(dropdownInfo){
+
+
+
+
+
+
+
+
+const setupDropdown = (dropdownInfo) =>{
     let options = dropdownInfo.options;
     let menu = dropdownInfo.menu;
     let dropdown = dropdownInfo.dropdown;
@@ -117,5 +140,8 @@ function setupDropdown(dropdownInfo){
 }
 
 
+const cancel = document.getElementById("cancel")
 
-// module.exports = { currentTasks, currentTechs }
+cancel.addEventListener("click", () => {
+    location.assign("/profile")
+})

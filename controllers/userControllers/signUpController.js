@@ -1,5 +1,5 @@
-const User = require("../models/User")
-const handleErrors = require("../models/loginErrors")
+const User = require("../../models/User")
+const handleErrors = require("../../models/loginErrors")
 
 const handleUserSignUp = async (req, res) => {
     const { username, email, password, remember } = req.body;
@@ -20,7 +20,7 @@ const handleUserSignUp = async (req, res) => {
     try {
         const user = await User.create({ username, email, password });
         if(user){
-            req.user = user.username;
+            req.user = {username : user.username, _id : user._id};
             res.redirect('profile')
         }
       }
