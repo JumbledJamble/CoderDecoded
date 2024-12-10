@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const findOneProject = require('../controllers/projectControllers/findOneProject')
+const findOneProject = require('../controllers/projectControllers/findOneProject');
+const { findProjectById } = require('../controllers/projectControllers/findProjectById.js');
 
 
 // should be a dynamic link, figuring out the id on the fly via the user's id/username
@@ -10,8 +11,11 @@ router.get("/:id", (req, res) => {
 
     // need to replicate to allow for searching project by projectname
     let profile = req.user.username
+    console.log(profile)
     res.render('logProject', {profile, projectByID})
 })
+
+
 
 router.post("/", (req, res) => {
     const { handleLogging } = req.body.logging;
@@ -19,5 +23,13 @@ router.post("/", (req, res) => {
     console.log(handleLogging)
 })
 
+router.get("/getProject/:id", async (req, res) => {
+    const projectId = req.params.id
+    const projectData = await findProjectById(projectId)
+    if(!projectData){
+        res.json({error: "No project data"})
+    }
+    res.json({projectData})
+})
 
 module.exports = router;

@@ -4,71 +4,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log</title>
+    <link rel="stylesheet" href="/styles/log.css">
 </head>
 <body>
   <canvas id="canvas"></canvas>
-  <div class="back"><a href="/profile"><button>Back</button></a></div>
-  <div class = "miniHeader">
-      <div class="quote"></div>
-      <div class="user">Hello, <%= profile %></div>
-      <div class="signOut">
-          <a href="/logout"><button>Sign Out</button></a>
-      </div>
-  </div>
-
-  <div class="title">Think about what makes sense later</div>
   <div class="container">
-    <div class="form">
-        <form>
-            <div class="formTitle">
-                <input type="text" name="title" placeholder="Project Title">
-            </div>
-            <div class="formDescription">
-                <input type="text" name="description" placeholder="Project Description">
-            </div>
-            <div class="formTasks">
-                <input type="text" name="tasks" placeholder="Project Tasks">
-            </div>
-            <div class="formTechs">
-                <div class="dropdowns">
-                    <div class="dropdown javascript"></div>
-                    <div class="dropdown python"></div>
-                    <div class="dropdown C++"></div>
-                    <div class="dropdown C#"></div>
-                </div>
-                <div class="techsList"></div>
-            </div>
-            <div class="quote">"... the red button, or the blue button?"</div>
-            <div class="buttons">
-                <div class="button redBtn"><button type="submit" id="create">Create</button></div>
-                <div class="button redBtn"><button type="cancel" id="cancel">Cancel</button></div>
-            </div>
-        </form>
+    <div class="header">
+      <div class="title">Hello, <%= profile %></div>
+      <!-- logout will be position absolute, header will be position relative -->
+      <div class="logout"><button>Sign Out</button></div>
+      <div class="quote"><em>"Let me give you one piece of advice... Be honest."</em></div>
     </div>
 
+    <div class="innerBox">
+      <div class="projForm projectTitle">
+        <div class="titleText" id="titleText">Placeholder Title</div>
+        <div class="titleBtn" id="titleBtn"><div class="border">e</div></div>
+      </div>
 
+      <div class="projForm techDescription">
+        <div class="descriptionFrame">
+          <div class="descriptionText" id="descriptionText">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime vitae, nemo temporibus at debitis facere repudiandae necessitatibus similique ipsa laudantium?</div>
+        </div>
+        <div class="techFrame">
+          <div class="techTitle">Current Techs</div>
+          
+          <div class="techlist" id="techlist"></div>
+
+          <div class="techDropdowns">
+
+            <div class="dropdown">
+              <div class="dropdownInfo" id="jsClickable">
+                <div class="dropdownImage"><img src="/images/002-js.png"></div>
+                <div class="dropdownTitle">Javascript</div>
+              </div>
+              <div class="menu" id="Javascript"></div>
+            </div>
+
+            <div class="dropdown">
+              <div class="dropdownInfo" id="cppClickable">
+                <div class="dropdownImage"><img src="/images/003-c.png"></div>
+                <div class="dropdownTitle">C++</div>
+              </div>
+              <div class="menu" id="Cpp"></div>
+            </div>
+
+        <div class="dropdown">
+          <div class="dropdownInfo" id="csClickable">
+            <div class="dropdownImage"><img src="/images/004-c-sharp.png"></div>
+            <div class="dropdownTitle">C#</div>
+          </div>
+          <div class="menu" id="Csharp"></div>
+        </div>
+        
+        <div class="dropdown">
+          <div class="dropdownInfo" id="pythonClickable">
+            <div class="dropdownImage"><img src="/images/001-python.png"></div>
+            <div class="dropdownTitle">Python</div>
+          </div>
+          <div class="menu" id="Python"></div>
+        </div>
+        
+      </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="taskFrame">
+        <div class="taskTitle">
+          <div>Log your time! Select a task to log time to.</div>
+          <div class="newTask" id="newTask">.. or add a new task here</div>
+        </div>
+
+        <div class="tasklist" id="tasklist"></div>
+      </div>
+
+      <div class="submit" id="submit">Submit</div>
+    
+</div>
 </body>
-<script src = "/scripts/matrixEffects/matrixCluster.js"></script>
+<script type="module" src="/scripts/matrixEffects/matrixCluster.js"></script>
+<script type="module" src="/scripts/logProject/logProject.js"></script>
 <script>
-    const form = document.querySelector('form');
-    const emailError = document.querySelector('.email.error');
-    const passwordError = document.querySelector('.password.error');
-  
-    form.addEventListener('submit', async (e) => {
+    const SubmitBtn = document.getElementById("submit")
+    SubmitBtn.addEventListener('submit', async (e) => {
       e.preventDefault();
-  
-      // reset errors
-      emailError.textContent = '';
-      passwordError.textContent = '';
-  
-      // get values
-      const email = form.email.value;
-      const password = form.password.value;
   
       try {
         const res = await fetch('/signup', { 
           method: 'POST', 
-          body: JSON.stringify({ email, password }),
+          //body: JSON.stringify({ }),
           headers: {'Content-Type': 'application/json'}
         });
         const data = await res.json();

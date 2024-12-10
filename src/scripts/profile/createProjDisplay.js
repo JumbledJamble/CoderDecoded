@@ -6,6 +6,7 @@ export const createProjDisplay = (displayProjects, info) => {
     displayProjects.appendChild(panel)
 
     console.log(`${info._id}`)
+    
     panel.addEventListener("click", () => {
         location.assign(`/logProject/${info._id}`)
     })

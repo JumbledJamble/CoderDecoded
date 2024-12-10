@@ -78,10 +78,6 @@ techList.addEventListener("click", (event) => {
 
 
 
-
-
-
-
 const setupDropdown = (dropdownInfo) =>{
     let options = dropdownInfo.options;
     let menu = dropdownInfo.menu;
@@ -104,9 +100,6 @@ const setupDropdown = (dropdownInfo) =>{
             }
         })
 
-            // after all children have been created, make menu visible
-    //menu.classList.toggle('invisible');
-    // add event listener to set the menu back to invisible
     if (!menu.classList.contains('invisible')) {
         window.addEventListener("click", closeMenu);
     }

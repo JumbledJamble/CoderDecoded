@@ -10,7 +10,6 @@ const findProjectData = async (user) => {
             console.log("User not found.")
             return null;
         }
-        console.log(foundUser)
         let projects = [];
         for(let project of foundUser.projects){
             console.log(project)

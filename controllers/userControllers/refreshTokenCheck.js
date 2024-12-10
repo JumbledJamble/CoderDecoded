@@ -39,6 +39,7 @@ async function refreshCheck(req) {
         }
         // send another access token here
         req.user = {username : decoded.username, _id : foundUser._id.toString()}
+        console.log(req.user)
         return true;
 
     } catch (err) {

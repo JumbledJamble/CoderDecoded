@@ -14,7 +14,7 @@ async function redirectValidTokens(req, res, next) {
         const user = await User.findOne({username : req.user.username});
         req.user.id = user._id;
         console.log(`Found user by id: ${req.user.id}`)
-        res.redirect("/profile")
+        res.redirect("profile")
     }
     else {
         // otherwise, check for refreshToken
@@ -35,8 +35,7 @@ async function redirectValidTokens(req, res, next) {
                 secure: true,
                 maxAge: 2 * 60 * 60 * 1000, // 2 hours
             });
-            console.log("Rendering the man's profile here")
-            res.render("/profile")
+            res.redirect("profile")
         } // if user doesn't pass check, continue as planned
         else {
             console.log("Calling next()")

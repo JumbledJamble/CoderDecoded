@@ -73,7 +73,7 @@ const handleUserSignIn = async (req, res) => {
             secure: true,
             maxAge: 24 * 60 * 60 * 1000,
         });
-        res.render('profile')
+        res.render('profile', {profile: req.user.username})
     }
 
 }

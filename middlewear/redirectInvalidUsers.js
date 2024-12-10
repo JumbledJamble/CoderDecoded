@@ -13,7 +13,9 @@ async function redirectInvalidTokens(req, res, next) {
     }
     // otherwise, check for refreshToken
     else {
-        await refreshCheck(req)
+        req.validation = await refreshCheck(req)
+        console.log("From invalidTokens line 17")
+        console.log(req.user)
         // if user passes refreshCheck, create a new access token for the user, and move on
         if(req.validation === true){
             console.log("Refresh check passed, generating an access token and allowing user to pass.")
@@ -32,7 +34,7 @@ async function redirectInvalidTokens(req, res, next) {
             next();
         } // if user doesn't pass check, redirect to /signIn
         else {
-            console.log("Redirecting to sign in.)")
+            console.log("Redirecting to sign in.")
             res.redirect("/signIn")
         }
     }

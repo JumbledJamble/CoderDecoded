@@ -127,6 +127,7 @@ button{
 
 .displayProjects{
     min-height: 7em;
+    border-bottom: solid 1px rgb(190, 190, 190);
 }
 
 .displayProject{
@@ -146,9 +147,12 @@ button{
 
 .teaser{
     border-bottom: solid 1px rgb(190, 190, 190);
-    margin-bottom: 2em;
     font-weight: 600;
     font-size: 1.3em;
+}
+
+.graphs{
+    padding-top: 2em;
 }
 
 .graph{

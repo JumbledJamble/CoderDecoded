@@ -28,14 +28,19 @@ const backgroundColors = [
 
 window.onload = async () => {
     const data = await fetchProjects()
+
     projects = data.usersProjects
     user = data.user
+    
+    
     for(let project of projects){
         if(project.active == true){
             let projInfo = {_id: project._id, name: project.name}
             createProjDisplay(displayProjects, projInfo)
         }
     }
+
+
     activeTab = openProjects
     openProjects.classList.add("active")
     displayProjects.classList.add("active")
@@ -60,7 +65,10 @@ window.onload = async () => {
         currentYear -= 1
     }else { currentMonth -= 6}
     let initialTimeStamp = `${currentMonth}-${currentYear}`
+
     const datasets = []
+
+
     for(let i = 0; i < projects.length; i++){
         let subset = createDataset(projects[i], user.logs, initialTimeStamp)
         subset.backgroundColor = backgroundColors[i]
@@ -85,9 +93,7 @@ window.onload = async () => {
         data: {
             labels : labels,
             datasets : datasets
-
         },
-
         options: {}
     })
 }

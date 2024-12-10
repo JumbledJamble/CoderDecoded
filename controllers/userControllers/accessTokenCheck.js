@@ -29,15 +29,17 @@ const accessCheck = async (req) => {
                 }
             );
         });
-
+        console.log(`from accessTokenCheck --> Decoded:`)
+        console.log(decoded)
         const signingUser = await User.findOne({ username: decoded.username }).exec();
 
         if (!signingUser) {
             console.log("User not found");
             return false;
         }
-
+        // ensure this format matches profileRoutes input to render profile
         req.user = { username : decoded.username, _id : signingUser._id.toString()}
+        console.log(req.user)
         return true; // Return true if successful
     } catch (error) {
         console.log(`Access check failed with error: ${error.message}`);
