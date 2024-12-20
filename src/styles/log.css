@@ -172,13 +172,29 @@ button{
     border: solid 1px grey;
 }
 
+
 .taskFrame{
     margin-top: 1em;
+    margin-bottom: 10vh;
+}
+
+.taskframeTitle{
+    display: flex;
+    flex-direction: row;
 }
 
 .taskTitle{
     display: flex;
-    flex-direction: row;
+    
+    color: red;
+}
+
+.collapsed{
+    cursor: pointer;
+}
+
+.collapsed:hover{
+    background-color: var(--bg2);
 }
 
 .newTask{

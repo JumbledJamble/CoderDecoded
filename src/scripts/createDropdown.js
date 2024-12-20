@@ -34,7 +34,7 @@ let openDropdown = false
 // techs = currentTechs the user has
 // techFrame => assist with closing the menu if click is out of bounds
 // Options => each item to be created in the dropdown menu
-export const createTechDropdown = (techs, CreateLocation, Options, techFrame) => {
+export const createTechDropdown = (techs, CreateLocation, Options, setupDropdown) => {
 
     if(openDropdown == true){
         removeDropdown(activeDropdown)
@@ -54,8 +54,10 @@ export const createTechDropdown = (techs, CreateLocation, Options, techFrame) =>
     }
     // event listener to close dropdown when click is out of range
     window.addEventListener("click", (e) => {
+        //console.log("Evidence of duplicate event listener")
         if(openDropdown && !CreateLocation.contains(e.target)){
             removeDropdown(CreateLocation)
+            window.addEventListener("click", setupDropdown)
         }
     })
 
