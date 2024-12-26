@@ -1,9 +1,9 @@
-export const submitProjectChanges = async (changes) => {
+export const submitProjectChanges = async (changes, particularProjID) => {
 
-
-    
+    const url = "http://localhost:5000/logProject/" + particularProjID
+    // TODO double check url works
     try {
-    const res = await fetch('/logProject', { 
+    const res = await fetch(url, { 
         method: 'POST', 
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ changes }),

@@ -75,59 +75,14 @@
             <div class="newTask" id="newTask">.. or add a new task here</div>
           </div>
           <div class="tasklist" id="tasklist">
-            <!--
-            <div class="task" id="task-1">
-              <div class="titlePrompt">Task Name:</div>
-              <div class="taskTitle" id="taskTitle">Improve UI on front-end</div>
-              <div class="descriptionPrompt">Task Description:</div>
-              <div class="taskDescription">Do stuff, things, and the other tasks</div>
-            </div>
-          
-
-          
-            <form class="task" id="task-2">
-              <div class="titlePrompt">Task Name:</div>
-              <input class="taskTitle" id="taskTitle" type="text" placeholder="Improve UI on front-end"></input>
-              <div class="descriptionPrompt">Task Description:</div>
-              <input class="taskDescription" type="text" placeholder="Do stuff, things, and the other tasks"></input>
-            </form>
-          
-  -->
     </div>
 
   </div>
-<div class="submit" id="submitProjChanges">Submit</div>
+<div class="submit" id="submitProjChanges">Submit Changes</div>
     
 </div>
 </body>
 <script type="module" src="/scripts/matrixEffects/matrixCluster.js"></script>
 <script type="module" src="/scripts/logProject/logProject.js"></script>
-<script>
-    const SubmitBtn = document.getElementById("submit")
-    SubmitBtn.addEventListener('submit', async (e) => {
-      e.preventDefault();
-  
-      try {
-        const res = await fetch('/signup', { 
-          method: 'POST', 
-          //body: JSON.stringify({ }),
-          headers: {'Content-Type': 'application/json'}
-        });
-        const data = await res.json();
-        console.log(data);
-        if (data.errors) {
-          emailError.textContent = data.errors.email;
-          passwordError.textContent = data.errors.password;
-        }
-        if (data.user) {
-          location.assign('/');
-        }
-  
-      }
-      catch (err) {
-        console.log(err);
-      }
-  
-    });
-  </script>
+
 </html>

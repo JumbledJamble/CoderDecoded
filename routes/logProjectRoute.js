@@ -26,10 +26,11 @@ router.post("/", (req, res) => {
 router.get("/getProject/:id", async (req, res) => {
     const projectId = req.params.id
     const projectData = await findProjectById(projectId)
+    let user = req.user.username
     if(!projectData){
         res.json({error: "No project data"})
     }
-    res.json({projectData})
+    res.json({projectData, user})
 })
 
 module.exports = router;

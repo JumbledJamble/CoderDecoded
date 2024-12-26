@@ -6,6 +6,7 @@ import { submitProjectChanges } from "./fetchSubmitChanges.js"
 
 const particularProjID = window.location.pathname.split("/")[2]
 const submitButton = document.getElementById("submitProjChanges")
+const newTask = document.getElementById("newTask")
 
 const url = "http://localhost:5000/logProject/getProject/" + particularProjID
 console.log(url)
@@ -35,11 +36,13 @@ const DBOptions = ["MySQL", "Reddis", "Memcached", "Cassandra", "MongoDB", "Post
 
 var currentTasks = [];
 var currentTechs = [];
-let activeDropdown
-let openDropdown = false
+var activeDropdown = null
+var openDropdown = false
 var changes = {}
 changes.newLogs = []
 changes.newTasks = []
+changes.newTaskLogs = []
+var isCreated = false
 
 window.onload = async () => {
     const project = await fetchProject()
@@ -49,9 +52,9 @@ window.onload = async () => {
 
     currentTechs = project.projectData.techs
     currentTasks = project.projectData.tasks
+    let username = project.user
 
     console.log(project.projectData)
-
 
     // TECHS
     for(let tech of currentTechs){
@@ -68,17 +71,19 @@ window.onload = async () => {
 
     // TASKS
     for(let task of currentTasks){
-        createCollapsedTask(currentTasks, task, taskList)
+        createCollapsedTask(currentTasks, task, taskList, changes, username)
     }
 
-    console.log("Completed")
+    newTask.addEventListener("click", () => {
+        createTaskForm(taskList, isCreated, changes, currentTasks, username)
+    })
 
 
     // SUBMIT
     // add event listener for submit button
     submitButton.addEventListener("click", (e) => {
         // fetch changes here
-        submitProjectChanges(changes)
+        submitProjectChanges(changes, particularProjID)
         console.log("Submitted")
     })
 }
