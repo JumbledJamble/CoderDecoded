@@ -83,7 +83,7 @@ window.onload = async () => {
     // add event listener for submit button
     submitButton.addEventListener("click", (e) => {
         // fetch changes here
-        submitProjectChanges(changes, particularProjID)
+        submitProjectChanges(changes, particularProjID, currentTechs)
         console.log("Submitted")
     })
 }

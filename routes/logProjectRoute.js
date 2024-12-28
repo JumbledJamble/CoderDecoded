@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const findOneProject = require('../controllers/projectControllers/findOneProject');
 const { findProjectById } = require('../controllers/projectControllers/findProjectById.js');
+const { saveProjectLogs } = require('../controllers/projectControllers/saveProjectLogs.js')
 
 
 // should be a dynamic link, figuring out the id on the fly via the user's id/username
@@ -17,10 +18,21 @@ router.get("/:id", (req, res) => {
 
 
 
-router.post("/", (req, res) => {
-    const { handleLogging } = req.body.logging;
-    console.log(`Logging:`)
-    console.log(handleLogging)
+router.post("/:id", async (req, res) => {
+    console.log("Post route hit.")
+    let projID = req.params.id
+    console.log(`Id is: ${projID}`)
+    let projChanges = req.body.changes
+
+    // const sanitisedData = sanitizeData(projChanges)
+    
+    const savedProj = await saveProjectLogs(projID, projChanges, req.user._id)
+    if(savedProj?.error){
+        res.json({error : savedProj.error})
+    }else{
+        res.json({success: true})
+    }
+    
 })
 
 router.get("/getProject/:id", async (req, res) => {

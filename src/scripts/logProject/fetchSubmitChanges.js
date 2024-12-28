@@ -1,7 +1,13 @@
-export const submitProjectChanges = async (changes, particularProjID) => {
+export const submitProjectChanges = async (changes, particularProjID, techs) => {
+
+    changes.techs = techs
 
     const url = "http://localhost:5000/logProject/" + particularProjID
-    // TODO double check url works
+
+    console.log("Submitting changes:")
+    console.log(changes)
+
+    console.log("Submitting to server")
     try {
     const res = await fetch(url, { 
         method: 'POST', 
@@ -11,8 +17,13 @@ export const submitProjectChanges = async (changes, particularProjID) => {
     });
 
     const data = await res.json();
-    console.log(data)
-    location.assign(`/profile`);
+    
+    if(data.error){
+        console.log(error)
+    }
+    else{
+        location.assign(`/profile`);
+    }
     
 
     }

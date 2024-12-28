@@ -36,7 +36,7 @@ export const saveNewTask = (changes, currentTasks) => {
 
     task.description = formDescrip.value
     task.name = formTitle.value
-    task.hours = 0
+    task.hours = []
     task.id = changes.newTasks.length
 
     // TODO move this to backend after i've made a fetch req
@@ -167,10 +167,9 @@ export const expandNewTask = (tasks, changes, htmlTask, username) => {
     taskDescription.innerText = changes.newTasks[id].description
     container.appendChild(taskDescription)
 
-    logTitle.innerText = "CONTRIBUTOR : HOURS"
+    logTitle.innerText = "Hours Contributed:"
     container.appendChild(logTitle)
     console.log(container)
-    console.log(parent)
     console.log(htmlTask)
 
     let newForm = document.createElement("form")
@@ -183,7 +182,6 @@ export const expandNewTask = (tasks, changes, htmlTask, username) => {
     newTitle.innerText = "Time(in hours):"
     newForm.appendChild(newTitle)
     newForm.appendChild(newInput)
-    container.appendChild(newForm)
     newInput.focus()
     console.log("Adding form:")
     console.log(newForm)
@@ -211,8 +209,22 @@ export const expandNewTask = (tasks, changes, htmlTask, username) => {
         }
     }
 
+    if(changes.newTaskLogs.length > 0){
+        console.log(`Looking through new logs for id of ${id}`)
+        console.log(changes.newTaskLogs)
+        for(let i = 0; i < changes.newTaskLogs.length; i++){
+            
+            if(changes.newTaskLogs[i].id == id){
+                console.log("Found a new log:")
+                console.log(changes.newTaskLogs[i])
+                createLogs(`c-${i}`, changes.newTaskLogs[i], formLogs)
+            }
+        }
+    }
+
 
     container.appendChild(formLogs)
+    container.appendChild(newForm)
     htmlTask.appendChild(container)
     // TODO fix this. saveNewLog should be specifying where the task info is going to go
     newForm.addEventListener("submit", (e) => {
@@ -232,6 +244,7 @@ export const saveNewTaskLogs = (changes, taskid, username) => {
     newLog.contributor = username
 
     changes.newTaskLogs.push(newLog)
+    console.log(changes)
 }
 
 export const saveNewLog = (changes, taskID, username) => {
@@ -265,13 +278,12 @@ export const expandForm = (task, tasks, changes, username) => {
     // to find position of the clicked task within tasks, we must first get the HTML element's id. However, the uuid's
     // in mongo start with 1, not 0, so we need to offset by 1 to find the proper id in the tasks array
     let taskID = task.id.split("-")[1] - 1
-    console.log(`Element array position: ${taskID} | HTML element ID(without split): ${task.id}`)
     
 
     taskDescription.innerText = tasks[taskID].description
     container.appendChild(taskDescription)
 
-    logTitle.innerText = "CONTRIBUTOR: HOURS"
+    logTitle.innerText = "Hours Contributed:"
     container.appendChild(logTitle)
     task.appendChild(container)
 
