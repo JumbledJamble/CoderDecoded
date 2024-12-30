@@ -1,6 +1,6 @@
 import { fetchProjects } from "./homeCharts.js"
 import { createProjDisplay } from "./createProjDisplay.js"
-import { createDataset } from "./createDataset.js"
+import { createTotalTimeProjDataset, createPercentTimeProjDataset, createTasksPerProjDatasets } from "./createDatasets.js"
 
 
 const timePerProject = document.getElementById("timePerProj").getContext('2d')
@@ -26,6 +26,10 @@ const backgroundColors = [
     'rgb(228, 28, 28)', 'rgb(13, 37, 172)', 'rgb(179, 3, 164)'
 ]
 
+const rgbaColors = [
+    'rgba(228, 28, 28, 0.9)', 'rgba(13, 37, 172, 0.9)', 'rgba(179, 3, 164, 0.9)'
+]
+
 window.onload = async () => {
     const data = await fetchProjects()
 
@@ -42,6 +46,7 @@ window.onload = async () => {
 
 
     activeTab = openProjects
+    // TODO allow for clicking 'open projects' and also 'closed projects'
     openProjects.classList.add("active")
     displayProjects.classList.add("active")
     newProject.addEventListener("click", () => {
@@ -66,17 +71,17 @@ window.onload = async () => {
     }else { currentMonth -= 6}
     let initialTimeStamp = `${currentMonth}-${currentYear}`
 
-    const datasets = []
+    const timeProjDatasets = []
 
 
     for(let i = 0; i < projects.length; i++){
-        let subset = createDataset(projects[i], user.logs, initialTimeStamp)
+        let subset = createTotalTimeProjDataset(projects[i], user.logs, initialTimeStamp)
         subset.backgroundColor = backgroundColors[i]
         subset.borderColor = colors[i]
-        datasets.push(subset)
+        timeProjDatasets.push(subset)
     }
-    console.log("After constructing all datasets:")
-    console.log(datasets)
+    //console.log("After constructing all datasets:")
+    //console.log(datasets)
     let labels = []
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     let val
@@ -92,8 +97,29 @@ window.onload = async () => {
         type: 'line',
         data: {
             labels : labels,
-            datasets : datasets
+            datasets : timeProjDatasets,
+            backgroundColor: colors
         },
         options: {}
     })
+    
+    const percentTimeDataset = createPercentTimeProjDataset(user.logs)
+
+    const timePercentPerProjectGraph = new Chart(percentTimePerProj, {
+        type: 'pie',
+        data: {
+            labels : percentTimeDataset.labels,
+            datasets : [{
+                data : percentTimeDataset.datasets,
+                backgroundColor : backgroundColors,
+            }],
+            backgroundColor : backgroundColors
+        },
+        options: {}
+    })
+
+
+    const tasksPerProjDataset = createTasksPerProjDatasets(projects)
+    
+
 }
