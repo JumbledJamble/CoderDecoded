@@ -20,12 +20,12 @@ export const createTotalTimeProjDataset = (project, logs, timestamp) => {
             //console.log(logs[j])
             if(logs[j].projectName == project.name){
                 // if we're looking at the right month
-                let inspectMonth = logs[j].timeStamp.split()
                 if(logs[j].timeStamp.split("-")[0] == i){
                     totalThisMonth += logs[j].hours
                 }
             }
         }
+        console.log(`Month iterator: ${i} @ ${totalThisMonth}`)
         dataset.data.push(totalThisMonth)
 
     }
@@ -45,7 +45,7 @@ export const createPercentTimeProjDataset = (logs) => {
     let names = {}
 
     for(let log of logs){
-        console.log(log)
+        //console.log(log)
         if(projects[log.projectID]){
             projects[log.projectID] += log.hours
         }else{
@@ -54,8 +54,8 @@ export const createPercentTimeProjDataset = (logs) => {
         }
     }
 
-    console.log(projects)
-    console.log(names)
+    //console.log(projects)
+    //console.log(names)
 
     for(let project in projects){
         datasets.push(projects[project])
@@ -88,6 +88,19 @@ export const createTasksPerProjDatasets = (projects) => {
     for(let label in labels){
         datasets.push({projectName : label, value : labels[label]})
     }
+    
+    return datasets
+}
 
-    console.log(datasets)
+export const createTechStackDatasets = (projects) => {
+    let datasets = [];
+
+    for(let project of projects){
+        datasets.push({
+            value: project.techs.length,
+            projectName: project.name
+        })
+    }
+
+    return datasets
 }

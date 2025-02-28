@@ -1,6 +1,6 @@
 import { fetchProjects } from "./homeCharts.js"
 import { createProjDisplay } from "./createProjDisplay.js"
-import { createTotalTimeProjDataset, createPercentTimeProjDataset, createTasksPerProjDatasets } from "./createDatasets.js"
+import { createTotalTimeProjDataset, createPercentTimeProjDataset, createTasksPerProjDatasets, createTechStackDatasets } from "./createDatasets.js"
 
 
 const timePerProject = document.getElementById("timePerProj").getContext('2d')
@@ -60,7 +60,7 @@ window.onload = async () => {
 
     let currentDate = new Date()
     let remainder
-    let currentMonth = parseInt(currentDate.getMonth()) + 1
+    let currentMonth = parseInt(currentDate.getMonth())
     let currentYear = parseInt(currentDate.getFullYear())
 
     if(currentMonth <= 6 ){
@@ -70,7 +70,6 @@ window.onload = async () => {
         currentYear -= 1
     }else { currentMonth -= 6}
     let initialTimeStamp = `${currentMonth}-${currentYear}`
-
     const timeProjDatasets = []
 
 
@@ -80,15 +79,13 @@ window.onload = async () => {
         subset.borderColor = colors[i]
         timeProjDatasets.push(subset)
     }
-    //console.log("After constructing all datasets:")
-    //console.log(datasets)
     let labels = []
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     let val
     for(let i = 0; i < 7; i++){
-        val = currentMonth + i - 1
-        if(val >= 13){
-            val -= 12
+        val = currentMonth + i
+        if(val >= 12){
+            val -= 11
         }
         labels[i] = months[val]
     }
@@ -121,5 +118,33 @@ window.onload = async () => {
 
     const tasksPerProjDataset = createTasksPerProjDatasets(projects)
     
+    const openTasksPerProjectGraph = new Chart(openTasksPerProj, {
+        type: 'bar',
+        data: {
+            labels: tasksPerProjDataset.map(row => row.projectName),
+            datasets: [
+                {
+                    label: "Number of Currently Open Tasks",
+                    data: tasksPerProjDataset.map(row => row.value)
+                }
+            ]
+        },
+        options: {}
+    })
 
+
+    const techStackDatasets = createTechStackDatasets(projects)
+
+    const techStackPerProjectGraph = new Chart(techsPerProj, {
+        type: 'bar',
+        data: {
+            labels: techStackDatasets.map(row => row.projectName),
+            datasets: [
+                {
+                    label: "Number of techs in TechStack",
+                    data : techStackDatasets.map(row => row.value)
+                }
+            ]
+        }
+    })
 }

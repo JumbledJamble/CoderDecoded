@@ -75,9 +75,6 @@ techList.addEventListener("click", (event) => {
 })
 
 
-
-
-
 const setupDropdown = (dropdownInfo) =>{
     let options = dropdownInfo.options;
     let menu = dropdownInfo.menu;

@@ -2,7 +2,7 @@ const Project = require('../../models/Project')
 const User = require('../../models/User')
 
 const saveProjectLogs = async (projectID, changes, userID) => {
-    
+    console.log(changes.newTasks)
     const submissionDate = new Date()
     console.log("-----Changes-----")
     try{
@@ -24,7 +24,7 @@ const saveProjectLogs = async (projectID, changes, userID) => {
 
         let Year = submissionDate.getFullYear()
         let Month = submissionDate.getMonth()
-        const submissionTimeStamp = `${Month}/${Year}`
+        const submissionTimeStamp = `${Month}-${Year}`
 
         // if there are any tasks to update
         if(changes.newLogs.length > 0){
@@ -49,6 +49,7 @@ const saveProjectLogs = async (projectID, changes, userID) => {
             
             for(let i = 0; i < changes.newTasks.length; i++){
                 changes.newTasks[i].id = updatedProject.totalTasks
+                changes.newTasks[i].active = true
                 updatedProject.tasks.push(changes.newTasks[i])
                 updatedProject.totalTasks += 1
                 // TODO figure this out. when to increment totalTasks

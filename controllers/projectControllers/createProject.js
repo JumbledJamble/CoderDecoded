@@ -4,10 +4,9 @@ const User = require('../../models/User')
 const createProject = async (project, user) => {
 
     let newDate = new Date()
-    let falsemonth = newDate.getMonth()
+    let month = newDate.getMonth()
     let year = newDate.getFullYear()
 
-    let month = falsemonth + 1
 
     console.log(`Month: ${month}  | Year: ${year}`)
 

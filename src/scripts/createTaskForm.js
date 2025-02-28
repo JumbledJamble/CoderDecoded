@@ -279,7 +279,7 @@ export const expandForm = (task, tasks, changes, username) => {
     // in mongo start with 1, not 0, so we need to offset by 1 to find the proper id in the tasks array
     let taskID = task.id.split("-")[1] - 1
     
-
+    
     taskDescription.innerText = tasks[taskID].description
     container.appendChild(taskDescription)
 
